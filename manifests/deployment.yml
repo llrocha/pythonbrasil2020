@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zipcode-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zipcode-app
+  template:
+    metadata:
+      labels:
+        app: zipcode-app
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
+      containers:
+      - name: zipcode-app
+#        image: nunix.azurecr.io/pythonbrasil
+        env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
